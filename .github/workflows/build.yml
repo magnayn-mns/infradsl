@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-container:
+    runs-on: ubuntu-latest
+    name: Building container
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Run Gradle build
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "20"
+          cache: "gradle"
+      - run: |
+          ./gradlew app:jib  -Djib.to.image=${{ steps.prep.outputs.tags }} -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.SAML_GITHUB_TOKEN }}
