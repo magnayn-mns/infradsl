@@ -20,4 +20,4 @@ jobs:
           java-version: "17"
           cache: "gradle"
       - run: |
-          ./gradlew scripting-host:jib  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.SAML_GITHUB_TOKEN }}
+          ./gradlew scripting-host:jib  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
