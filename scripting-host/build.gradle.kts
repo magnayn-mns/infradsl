@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
     application
+    id("com.google.cloud.tools.jib") version "3.3.2"
 }
 
 val kotlinVersion: String by rootProject.extra
@@ -16,9 +17,49 @@ dependencies {
 }
 
 application {
-    mainClass.set("nm.host")
+    mainClass.set("nm.HostKt")
 }
 
 
+jib {
+    from {
+        image = "azul/zulu-openjdk-alpine:17"
+        platforms {
+            platform {
+                architecture = "arm64"
+                os = "linux"
+            }
+            platform {
+                architecture = "amd64"
+                os = "linux"
+            }
+        }
+    }
+    to {
+        image = "ghcr.io/magnayn-mns/infradsl"
+    }
+    container {
+        jvmFlags = listOf(
+            "-Xms512m",
+            "-Xdebug",
+            "-Dmicronaut.config.files=/version.properties")
+
+        mainClass = "nm.HostKt"
+      //  ports = listOf("8080")
+      //  creationTime = java.time.Instant.now().toString()
+       // labels = ["org.opencontainers.image.source": "https://github.com/DigitalInnovation/price"]
+        user = "1000"
+    }
+
+    extraDirectories {
+        paths {
+            path {
+                setFrom("src/main/scripts")
+                into = "/"
+
+            }
+        }
+    }
+}
 
 
