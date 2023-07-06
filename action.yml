@@ -11,6 +11,6 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/magnayn-mns/infradsl'
+  image: 'docker://ghcr.io/magnayn-mns/infradsl:main'
   args:
     - ${{ inputs.file }}
