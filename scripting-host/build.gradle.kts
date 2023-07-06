@@ -47,7 +47,7 @@ jib {
         mainClass = "nm.HostKt"
       //  ports = listOf("8080")
       //  creationTime = java.time.Instant.now().toString()
-       // labels = ["org.opencontainers.image.source": "https://github.com/DigitalInnovation/price"]
+        labels = mapOf("org.opencontainers.image.source" to "https://github.com/magnayn-mns/infradsl")
         user = "1000"
     }
 
