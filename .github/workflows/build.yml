@@ -29,4 +29,4 @@ jobs:
         env:
           GH_PASSWORD: '${{ secrets.GITHUB_TOKEN }}'
         run: |
-         ./gradlew scripting-host:jib -Djib.to.tags=latest,main  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+         ./gradlew scripting-host:jib --debug -Djib.to.tags=latest,main  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
