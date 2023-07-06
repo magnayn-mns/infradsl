@@ -49,6 +49,7 @@ jib {
       //  creationTime = java.time.Instant.now().toString()
         labels = mapOf("org.opencontainers.image.source" to "https://github.com/magnayn-mns/infradsl")
         user = "1000"
+        workingDirectory = "/github/workspace"
     }
 
     extraDirectories {
