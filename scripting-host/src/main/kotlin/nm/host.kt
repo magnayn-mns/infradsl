@@ -1,18 +1,16 @@
 package nm
 
 import java.io.File
+import java.nio.file.Paths
 import kotlin.script.experimental.api.EvaluationResult
 import kotlin.script.experimental.api.ResultWithDiagnostics
 import kotlin.script.experimental.api.ScriptDiagnostic
 import kotlin.script.experimental.host.toScriptSource
-import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
-import kotlin.script.experimental.host.toScriptSource
-import kotlin.script.experimental.jvm.dependenciesFromClassloader
 import kotlin.script.experimental.jvm.dependenciesFromCurrentContext
 import kotlin.script.experimental.jvm.jvm
-import kotlin.script.experimental.jvm.updateClasspath
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
+
 
 fun evalFile(scriptFile: File): ResultWithDiagnostics<EvaluationResult> {
 
@@ -44,6 +42,22 @@ fun main(vararg args: String) {
     } else {
         val scriptFile = File(args[0])
         println("Executing script $scriptFile")
+
+        val currentRelativePath = Paths.get("")
+        val s = currentRelativePath.toAbsolutePath().toString()
+        println("Current absolute path is: $s")
+
+        val f = File(".") // current directory
+
+        val files = f.listFiles()
+        for (file in files) {
+            if (file.isDirectory) {
+                print("directory:")
+            } else {
+                print("     file:")
+            }
+            println(file.canonicalPath)
+        }
 
         val res = evalFile(scriptFile)
 
