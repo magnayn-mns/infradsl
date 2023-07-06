@@ -1,0 +1,16 @@
+name: 'Run infradsl'
+author: 'nigel.magnay@nirima.com'
+description: 'Do some Infra stuff'
+branding:
+  icon: 'info'
+  color: 'green'
+inputs:
+  file:
+    description: filename
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'ghcr.io/magnayn-mns/infradsl'
+  args:
+    - ${{ inputs.file }}
