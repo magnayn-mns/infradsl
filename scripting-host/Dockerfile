@@ -14,5 +14,5 @@ COPY src/main/scripts/pulumi /pulumi
 
 WORKDIR /pulumi
 
-ENTRYPOINT ["pulumi", "preview", "--non-interactive"]
+ENTRYPOINT ["/pulumi/run.sh"]
 
