@@ -30,7 +30,7 @@ tasks.withType<Jar> {
         attributes("Main-Class" to "nm.HostKt")
     }
 
-    from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
 
 jib {
