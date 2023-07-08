@@ -25,6 +25,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}    
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: 'arm64,arm'   
 #      - name: Build the motd image
 #        env:
 #          GH_PASSWORD: '${{ secrets.GITHUB_TOKEN }}'
@@ -38,6 +42,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: scripting-host
+          platforms: linux/amd64,linux/arm64
           file: scripting-host/Dockerfile
           push: true
           tags: ghcr.io/${{ github.actor }}/infradsl:latest, ghcr.io/${{ github.actor }}/infradsl:main
