@@ -25,11 +25,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}    
+<<<<<<< HEAD
+      - name: Build the motd image
+        env:
+          GH_PASSWORD: '${{ secrets.GITHUB_TOKEN }}'
+        run: |
+         ./gradlew scripting-host:jib -Djib.to.tags=latest,main,${{ github.sha }}  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+=======
 #      - name: Build the motd image
 #        env:
 #          GH_PASSWORD: '${{ secrets.GITHUB_TOKEN }}'
 #        run: |
-#         ./gradlew scripting-host:jib -Djib.to.tags=latest,main,${{ github.sha }}  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+#         ./gradlew scripting-host:jib --debug -Djib.to.tags=latest,main  -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
       - name: Build
         run: ./gradlew build
       - name: Set up Docker Buildx
@@ -41,3 +48,4 @@ jobs:
           file: script-definition/Dockerfile
           push: true
           tags: ghcr.io/${{ github.actor }}/infradsl:latest, ghcr.io/${{ github.actor }}/infradsl:main
+>>>>>>> 67e1da7 (wip)

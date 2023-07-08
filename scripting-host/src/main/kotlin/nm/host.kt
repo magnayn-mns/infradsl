@@ -2,17 +2,21 @@ package nm
 
 import java.io.File
 import java.nio.file.Paths
-import kotlin.script.experimental.api.EvaluationResult
-import kotlin.script.experimental.api.ResultWithDiagnostics
-import kotlin.script.experimental.api.ScriptDiagnostic
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvm.dependenciesFromCurrentContext
 import kotlin.script.experimental.jvm.jvm
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
+import com.pulumi.Context
+import com.pulumi.Pulumi
+import kotlin.reflect.KClass
+import kotlin.script.experimental.api.*
 
+data class ProvidedProperty(val name: String, val type: KClass<*>, val value: Any?) {
+    constructor(name: String, type: Class<*>, value: Any?) : this(name, type.kotlin, value)
+}
 
-fun evalFile(scriptFile: File): ResultWithDiagnostics<EvaluationResult> {
+fun evalFile(scriptFile: File , props: List<ProvidedProperty>): ResultWithDiagnostics<EvaluationResult> {
 
     val compilationConfiguration = createJvmCompilationConfigurationFromTemplate<SimpleScript>(){
         jvm {
@@ -30,17 +34,34 @@ fun evalFile(scriptFile: File): ResultWithDiagnostics<EvaluationResult> {
             // variant 4: explicit classpath
 //            updateClasspath(listOf(File("/path/to/jar")))
         }
+        providedProperties(*(props.map { it.name to KotlinType(it.type) }.toTypedArray()))
+
+    }
+
+    val evaluationConfig = ScriptEvaluationConfiguration {
+        providedProperties(*(props.map { it.name to it.value }.toTypedArray()))
     }
 
 
-    return BasicJvmScriptingHost().eval(scriptFile.toScriptSource(), compilationConfiguration, null)
+    return BasicJvmScriptingHost().eval(scriptFile.toScriptSource(), compilationConfiguration, evaluationConfig)
 }
 
 fun main(vararg args: String) {
+
+    var file:String? = null;
+
     if (args.size != 1) {
-        println("usage: <app> <script file>")
+        file = System.getenv("DSL_SCRIPT");
     } else {
-        val scriptFile = File(args[0])
+        file = args[0];
+    }
+
+    if( file == null ) {
+        println("usage: <app> <script file>")
+        return;
+    }
+
+        val scriptFile = File(file)
         println("Executing script $scriptFile")
 
         val currentRelativePath = Paths.get("")
@@ -59,12 +80,22 @@ fun main(vararg args: String) {
             println(file.canonicalPath)
         }
 
-        val res = evalFile(scriptFile)
+        Pulumi.run { ctx: Context ->
 
-        res.reports.forEach {
-            if (it.severity > ScriptDiagnostic.Severity.DEBUG) {
-                println(" : ${it.message}" + if (it.exception == null) "" else ": ${it.exception}")
+            val properties = listOf(
+                ProvidedProperty("ctx", Context::class, ctx)
+            )
+            val res = evalFile(scriptFile, properties)
+
+            res.reports.forEach {
+                if (it.severity > ScriptDiagnostic.Severity.DEBUG) {
+                    println(" : ${it.message}" + if (it.exception == null) "" else ": ${it.exception}")
+                }
             }
         }
-    }
+
+
+
 }
+
+

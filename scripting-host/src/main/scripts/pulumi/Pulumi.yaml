@@ -1,0 +1,7 @@
+name: pulumi-base
+runtime:
+  name: java
+  options:
+    binary: script.jar
+
+description: A minimal Java Pulumi program with Gradle builds

@@ -14,12 +14,24 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-main-kts:$kotlinVersion")
     testImplementation("junit:junit:4.12")
     testRuntimeOnly("org.slf4j:slf4j-nop:1.7.28")
+
+    implementation("com.pulumi:pulumi:(,1.0]")
 }
 
 application {
     mainClass.set("nm.HostKt")
 }
 
+tasks.withType<Jar> {
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes("Main-Class" to "nm.HostKt")
+    }
+
+    from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+}
 
 jib {
     from {

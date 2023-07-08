@@ -11,6 +11,8 @@ dependencies {
  //   testImplementation(kotlin("test"))
  //   implementation("org.jetbrains.kotlin:kotlin-scripting-common")
     implementation("org.jetbrains.kotlin:kotlin-scripting-jvm")
+    implementation("com.pulumi:pulumi:(,1.0]")
+    implementation("com.pulumi:docker:4.2.4")
  //   implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies")
  //   implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies-maven")
     // coroutines dependency is required for this particular definition
