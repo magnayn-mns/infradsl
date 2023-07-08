@@ -37,7 +37,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: script-definition
-          file: script-definition/Dockerfile
+          context: scripting-host
+          file: scripting-host/Dockerfile
           push: true
           tags: ghcr.io/${{ github.actor }}/infradsl:latest, ghcr.io/${{ github.actor }}/infradsl:main
