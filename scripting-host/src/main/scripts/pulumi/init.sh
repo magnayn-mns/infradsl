@@ -7,5 +7,5 @@ export DSL_SCRIPT=/github/workspace/script.infra.kts
 export PULUMI_CONFIG_PASSPHRASE=
 
 pulumi login --local
-pulumi stack select dev
-pulumi preview --non-interactive
+pulumi stack init dev --non-interactive
+

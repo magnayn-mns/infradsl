@@ -12,6 +12,8 @@ RUN mkdir -p /github/workspace
 COPY build/libs/scripting-host.jar /pulumi/script.jar
 COPY src/main/scripts/pulumi /pulumi
 
+RUN /pulumi/init.sh
+
 WORKDIR /pulumi
 
 ENTRYPOINT ["/pulumi/run.sh"]
