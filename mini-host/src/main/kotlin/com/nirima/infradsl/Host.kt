@@ -1,4 +1,4 @@
-package nm
+package com.nirima.infradsl
 
 import com.pulumi.Context
 import com.pulumi.Pulumi
@@ -6,6 +6,7 @@ import com.pulumi.docker.Container
 import com.pulumi.docker.ContainerArgs
 import com.pulumi.docker.RemoteImage
 import com.pulumi.docker.RemoteImageArgs
+import nm.SimpleScript
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -24,23 +25,24 @@ data class ProvidedProperty(val name: String, val type: KClass<*>, val value: An
     constructor(name: String, type: Class<*>, value: Any?) : this(name, type.kotlin, value)
 }
 
-fun evalFile(scriptFile: File , props: List<ProvidedProperty>): ResultWithDiagnostics<EvaluationResult> {
+fun evalFile(scriptFile: File , props: List<ProvidedProperty>, context:Context): ResultWithDiagnostics<EvaluationResult> {
 
     val compilationConfiguration = createJvmCompilationConfigurationFromTemplate<SimpleScript>(){
         jvm {
             // configure dependencies for compilation, they should contain at least the script base class and
             // its dependencies
             // variant 1: try to extract current classpath and take only a path to the specified "script.jar"
-            dependenciesFromCurrentContext(
+           /* dependenciesFromCurrentContext(
                 "script-definition" /* script library jar name (exact or without a version) */
-            )
+            ) */
             // variant 2: try to extract current classpath and use it for the compilation without filtering
-        //    dependenciesFromCurrentContext(wholeClasspath = true)
+                dependenciesFromCurrentContext(wholeClasspath = true)
             // variant 3: try to extract a classpath from a particular classloader (or Thread.contextClassLoader by default)
             // filtering as in the variat 1 is supported too
 //            dependenciesFromClassloader(classLoader = SimpleScript::class.java.classLoader, wholeClasspath = true)
             // variant 4: explicit classpath
 //            updateClasspath(listOf(File("/path/to/jar")))
+
         }
         providedProperties(*(props.map { it.name to KotlinType(it.type) }.toTypedArray()))
 
@@ -48,18 +50,20 @@ fun evalFile(scriptFile: File , props: List<ProvidedProperty>): ResultWithDiagno
 
     val evaluationConfig = ScriptEvaluationConfiguration {
         providedProperties(*(props.map { it.name to it.value }.toTypedArray()))
+        constructorArgs(context)
     }
 
 
     return BasicJvmScriptingHost().eval(scriptFile.toScriptSource(), compilationConfiguration, evaluationConfig)
 }
 
-fun main(vararg args: String) {
+fun main_not(vararg args: String) {
     dumpProps()
 
     Pulumi.run { ctx: Context ->
 
-      //  ctx.log().info("zippy")
+        ctx.log().info("zippy")
+        demoEnv(ctx)
     }
 }
 
@@ -76,7 +80,7 @@ private fun dumpProps() {
     writer.close()
 }
 
-fun main2(vararg args: String) {
+fun main(vararg args: String) {
 
     var debug = File("/tmp/log.txt")
 
@@ -93,52 +97,55 @@ fun main2(vararg args: String) {
         return;
     }
 
-        val scriptFile = File(file)
-        println("Executing script $scriptFile")
-        debug.appendText("Executing script $scriptFile")
+    val scriptFile = File(file)
+    println("Executing script $scriptFile")
+    debug.appendText("Executing script $scriptFile")
 
-        val currentRelativePath = Paths.get("")
-        val s = currentRelativePath.toAbsolutePath().toString()
-        println("Current absolute path is: $s")
+    val currentRelativePath = Paths.get("")
+    val s = currentRelativePath.toAbsolutePath().toString()
+    println("Current absolute path is: $s")
 
-        val f = File(".") // current directory
+    val f = File(".") // current directory
 
-        val files = f.listFiles()
-        for (file in files) {
-            if (file.isDirectory) {
-                print("directory:")
-            } else {
-                print("     file:")
-            }
-            println(file.canonicalPath)
+    val files = f.listFiles()
+    for (file in files) {
+        if (file.isDirectory) {
+            print("directory:")
+        } else {
+            print("     file:")
         }
+        println(file.canonicalPath)
+    }
+
     debug.appendText("Starting run..")
 
     var monitor = System.getenv("PULUMI_MONITOR")
     debug.appendText("PULUMI_MONITOR: " + monitor)
 
     Pulumi.run { ctx: Context ->
-        debug.appendText("In Run")
+        debug.appendText("In Run\n")
 
         ctx.log().info("zippy")
-            //demoEnv(ctx)
+        demoEnv(ctx)
 
-        /*
+
             val properties = listOf(
                 ProvidedProperty("ctx", Context::class, ctx)
             )
-            val res = evalFile(scriptFile, properties)
+            val res = evalFile(scriptFile, properties, ctx)
 
             res.reports.forEach {
                 if (it.severity > ScriptDiagnostic.Severity.DEBUG) {
                     println(" : ${it.message}" + if (it.exception == null) "" else ": ${it.exception}")
                     debug.appendText(" : ${it.message}" + if (it.exception == null) "" else ": ${it.exception}\n")
+                    ctx.log().warn(" : ${it.message}" + if (it.exception == null) "" else ": ${it.exception}\n")
                 }
 
 
-            } */
+            }
         debug.appendText("Completed Run\n")
-        }
+        ctx.log().info("Completed Run")
+    }
 
     debug.appendText("Exit")
 

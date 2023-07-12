@@ -1,0 +1,6 @@
+name: pulumi-base
+runtime:
+  name: java
+  options:
+    binary: /Users/magnayn/dev/magnayn/untitled/launch-shim/build/libs/launch-shim.jar
+  #  binary: /Users/magnayn/dev/magnayn/untitled/scripting-host/build/libs/scripting-host.jar

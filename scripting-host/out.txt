@@ -1,0 +1,92 @@
+I0712 15:34:14.619609   11170 log.go:81] *** Starting Update(preview=true) ***
+I0712 15:34:14.620994   11170 log.go:81] gatherPluginsFromProgram(): gathering plugins from language host
+I0712 15:34:14.621636   11170 log.go:81] GetPluginPath(language, java, <nil>): found on $PATH /opt/homebrew/bin/pulumi-language-java
+I0712 15:34:14.621691   11170 log.go:81] Launching plugin 'java' from '/opt/homebrew/bin/pulumi-language-java' with args: -binary=/Users/magnayn/dev/magnayn/untitled/launch-shim/build/libs/launch-shim.jar,-root=/Users/magnayn/dev/magnayn/untitled/scripting-host,127.0.0.1:54712
+I0712 15:34:14.686986   11170 log.go:81] langhost[java].GetPluginInfo() executing
+I0712 15:34:14.688230   11170 log.go:81] langhost[java].GetRequiredPlugins(proj=pulumi-base,pwd=/Users/magnayn/dev/magnayn/untitled/scripting-host,program=.) executing
+I0712 15:34:14.918163   11170 log.go:81] langhost[java].GetRequiredPlugins(proj=pulumi-base,pwd=/Users/magnayn/dev/magnayn/untitled/scripting-host,program=.) success: #versions=0
+I0712 15:34:14.918376   11170 log.go:81] gatherPluginsFromProgram(): plugin java <nil> () is required by language host
+I0712 15:34:14.918542   11170 log.go:81] gatherPluginsFromSnapshot(): gathering plugins from snapshot
+I0712 15:34:14.918553   11170 log.go:81] gatherPluginsFromSnapshot(): no snapshot available, skipping
+I0712 15:34:14.918563   11170 log.go:81] ensurePluginsAreInstalled(): beginning
+I0712 15:34:14.918610   11170 log.go:81] GetPluginPath(language, java, <nil>): found on $PATH /opt/homebrew/bin/pulumi-language-java
+I0712 15:34:14.918620   11170 log.go:81] ensurePluginsAreInstalled(): plugin java <nil> already installed
+I0712 15:34:14.918626   11170 log.go:81] ensurePluginsAreInstalled(): completed
+I0712 15:34:14.918632   11170 log.go:73] computeDefaultProviderPlugins(): language host reported empty set of provider plugins, using all plugins
+I0712 15:34:14.918643   11170 log.go:81] computeDefaultProviderPlugins(): considering java
+I0712 15:34:14.918648   11170 log.go:81] computeDefaultProviderPlugins(): skipping java, not a resource provider
+I0712 15:34:14.918654   11170 log.go:73] computeDefaultProviderPlugins(): summary of default plugins:
+I0712 15:34:14.918688   11170 log.go:81] GetPluginPath(language, java, <nil>): found on $PATH /opt/homebrew/bin/pulumi-language-java
+I0712 15:34:14.918730   11170 log.go:81] Launching plugin 'java' from '/opt/homebrew/bin/pulumi-language-java' with args: -root=/Users/magnayn/dev/magnayn/untitled/scripting-host,127.0.0.1:54712
+I0712 15:34:14.940422   11170 log.go:81] langhost[java].GetPluginInfo() executing
+I0712 15:34:14.942164   11170 log.go:81] langhost[java].Run(pwd=/Users/magnayn/dev/magnayn/untitled/scripting-host,program=.,#args=0,proj=pulumi-base,stack=dev,#config=0,dryrun=true) executing
+I0712 15:34:14.942425   11170 log.go:81] deploymentExecutor.Execute(...): waiting for incoming events
+I0712 15:34:14.942640   11170 log.go:81] StepExecutor worker(-2): worker coming online
+I0712 15:34:14.942653   11170 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I0712 15:38:12.312502   11170 log.go:81] Preparing resource: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false
+I0712 15:38:12.312741   11170 log.go:81] eventSink::Debug(<{%reset%}>Preparing resource: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false<{%reset%}>)
+I0712 15:38:12.312574   11170 log.go:81] ResourceMonitor.SupportsFeature(id: resourceReferences) = true
+I0712 15:38:12.510645   11170 log.go:81] Prepared resource: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false
+I0712 15:38:12.510705   11170 log.go:81] eventSink::Debug(<{%reset%}>Prepared resource: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false<{%reset%}>)
+I0712 15:38:12.598971   11170 log.go:81] Registering resource monitor start: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false, request=type: "pulumi:pulumi:Stack"
+name: "pulumi-base-dev"
+object {
+}
+acceptSecrets: true
+customTimeouts {
+}
+deleteBeforeReplaceDefined: true
+acceptResources: true
+I0712 15:38:12.599096   11170 log.go:81] eventSink::Debug(<{%reset%}>Registering resource monitor start: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false, request=type: "pulumi:pulumi:Stack"
+name: "pulumi-base-dev"
+object {
+}
+acceptSecrets: true
+customTimeouts {
+}
+deleteBeforeReplaceDefined: true
+acceptResources: true
+<{%reset%}>)
+I0712 15:38:12.620019   11170 log.go:81] ResourceMonitor.RegisterResource received: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, #props=0, parent=, protect=false, provider=, deps=[], deleteBeforeReplace=0x14000d26750, ignoreChanges=[], aliases=[], customTimeouts=, providers=map[], replaceOnChanges=[], retainOnDelete=false, deletedWith=
+I0712 15:38:12.620125   11170 log.go:81] EvalSourceIterator produced a registration: t=pulumi:pulumi:Stack,name=pulumi-base-dev,#props=0
+I0712 15:38:12.620148   11170 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I0712 15:38:12.620168   11170 log.go:81] deploymentExecutor.handleSingleEvent(...): received RegisterResourceEvent
+I0712 15:38:12.621238   11170 log.go:81] Planner decided to create 'urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev' (inputs=map[])
+I0712 15:38:12.621861   11170 log.go:81] Checking step create for urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev
+I0712 15:38:12.621946   11170 log.go:81] StepExecutor worker(-2): worker received chain for execution
+I0712 15:38:12.621976   11170 log.go:81] StepExecutor worker(-2): worker waiting for incoming chains
+I0712 15:38:12.622001   11170 log.go:81] StepExecutor worker(0): launching oneshot worker
+I0712 15:38:12.624305   11170 log.go:81] StepExecutor worker(0): applying step create on urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev (preview true)
+I0712 15:38:12.624360   11170 log.go:81] StepExecutor worker(0): step create on urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev retired
+I0712 15:38:12.624376   11170 log.go:81] stripping unknowns from RegisterResource response for urn urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev
+I0712 15:38:12.624455   11170 log.go:81] ResourceMonitor.RegisterResource operation finished: t=pulumi:pulumi:Stack, urn=urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev, #outs=0
+I0712 15:38:12.667470   11170 log.go:81] Registering resource monitor end: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false, result=urn: "urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev"
+object {
+}
+I0712 15:38:12.667536   11170 log.go:81] eventSink::Debug(<{%reset%}>Registering resource monitor end: t=pulumi:pulumi:Stack, name=pulumi-base-dev, custom=false, remote=false, result=urn: "urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev"
+object {
+}
+<{%reset%}>)
+I0712 15:38:12.709681   11170 log.go:81] ResourceMonitor.RegisterResourceOutputs received: urn=urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev, #outs=0
+I0712 15:38:12.709729   11170 log.go:81] EvalSourceIterator produced a completion: urn=urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev,#outs=0
+I0712 15:38:12.709742   11170 log.go:81] deploymentExecutor.Execute(...): incoming event (nil? false, <nil>)
+I0712 15:38:12.709753   11170 log.go:81] deploymentExecutor.handleSingleEvent(...): received register resource outputs
+I0712 15:38:12.709765   11170 log.go:81] StepExecutor worker(-1): registered resource outputs urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev: old=#0, new=#0
+I0712 15:38:12.709791   11170 log.go:81] ResourceMonitor.RegisterResourceOutputs operation finished: urn=urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev, #outs=0
+I0712 15:38:12.716976   11170 log.go:81] RegisterResourceOutputs RPC prepared: urn='urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev'
+I0712 15:38:12.717076   11170 log.go:81] eventSink::Debug(<{%reset%}>RegisterResourceOutputs RPC prepared: urn='urn:pulumi:dev::pulumi-base::pulumi:pulumi:Stack::pulumi-base-dev'<{%reset%}>)
+I0712 15:38:47.482089   11170 log.go:81] StepExecutor worker(-2): worker exiting due to cancellation
+I0712 15:38:47.482238   11170 log.go:81] deploymentExecutor.Execute(...): signalling cancellation to providers...
+I0712 15:38:47.482369   11170 log.go:81] deploymentExecutor.Execute(...): context finished: context canceled
+I0712 15:38:47.482434   11170 log.go:81] StepExecutor worker(-1): StepExecutor.waitForCompletion(): waiting for worker threads to exit
+I0712 15:38:47.482464   11170 log.go:81] StepExecutor worker(-1): StepExecutor.waitForCompletion(): worker threads all exited
+I0712 15:38:47.482482   11170 log.go:81] deploymentExecutor.Execute(...): step executor has completed
+I0712 15:38:47.482584   11170 log.go:81] eventSink::Error(<{%reset%}>preview canceled<{%reset%}>)
+I0712 15:38:47.482979   11170 log.go:81] langhost[java].Run(pwd=/Users/magnayn/dev/magnayn/untitled/scripting-host,program=.,...,dryrun=true) failed: err=error reading from server: read tcp 127.0.0.1:54715->127.0.0.1:54713: use of closed network connection
+I0712 15:38:47.483125   11170 log.go:81] Explicitly ignoring and discarding error: rpc error: code = Canceled desc = grpc: the client connection is closing
+I0712 15:38:47.485376   11170 log.go:81] Explicitly ignoring and discarding error: 1 error occurred:
+	* operation not permitted
+
+I0712 15:38:47.485449   11170 log.go:81] EvalSourceIterator ended with an error: error reading from server: read tcp 127.0.0.1:54715->127.0.0.1:54713: use of closed network connection
+I0712 15:38:47.485459   11170 log.go:81] deploymentExecutor.Execute(...): incoming events goroutine exiting
+I0712 15:38:47.485993   11170 log.go:81] *** Update(preview=true) complete ***

@@ -8,6 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/launch-shim" />
+            <option value="$PROJECT_DIR$/mini-host" />
             <option value="$PROJECT_DIR$/script-definition" />
             <option value="$PROJECT_DIR$/scripting-host" />
           </set>

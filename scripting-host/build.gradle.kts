@@ -16,6 +16,7 @@ dependencies {
     testRuntimeOnly("org.slf4j:slf4j-nop:1.7.28")
 
     implementation("com.pulumi:pulumi:(,1.0]")
+    implementation("com.pulumi:docker:4.2.4")
 }
 
 application {
@@ -30,7 +31,7 @@ tasks.withType<Jar> {
         attributes("Main-Class" to "nm.HostKt")
     }
 
-    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
 
 jib {

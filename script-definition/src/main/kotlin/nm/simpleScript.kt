@@ -1,5 +1,8 @@
 package nm
 
+import com.pulumi.Context
+import com.pulumi.docker.RemoteImage
+import com.pulumi.docker.RemoteImageArgs
 import kotlin.script.experimental.annotations.KotlinScript
 
 // The KotlinScript annotation marks a class that can serve as a reference to the script definition for
@@ -12,7 +15,7 @@ import kotlin.script.experimental.annotations.KotlinScript
     fileExtension = "infra.kts"
 )
 // the class is used as the script base class, therefore it should be open or abstract
-abstract class SimpleScript {
+abstract class SimpleScript(val context:Context) {
     fun bibble() {
         println("Hello there freaks")
     }
@@ -28,6 +31,19 @@ abstract class SimpleScript {
         println("+scope")
         x()
         println("-scope")
+    }
+
+    fun alpine( x:() -> Unit) {
+
+        val alpine = RemoteImage(
+            "alpine", RemoteImageArgs.builder()
+                .name("alpine:latest")
+                .build()
+        )
+
+        x()
+
+        context.log().info("alpine")
     }
 
     fun zippy(href:String, init:(String)->Unit) {
